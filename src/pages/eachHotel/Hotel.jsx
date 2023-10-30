@@ -15,7 +15,7 @@ import { AuthContext } from "../../context/AuthContext";
 import Reserve from "../../components/reserve/Reserve";
 import StarRatings from 'react-star-ratings';
 import Icon from "@mdi/react";
-import { mdiPool, mdiWifi, mdiDumbbell, mdiSilverwareForkKnife, mdiSpa, mdiCoffee } from '@mdi/js'
+import { mdiPool, mdiWifi, mdiDumbbell, mdiSilverwareForkKnife, mdiSpa, mdiCoffee, mdiBriefcaseAccount, mdiParking, mdiFoodApple, mdiFoodForkDrink } from '@mdi/js'
 import axios from 'axios';
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
@@ -98,7 +98,16 @@ const Hotel = () => {
                 return <Icon path={mdiSpa} size={1} />;
             case "breakfast":
                 return <Icon path={mdiCoffee} size={1} />;
-
+            case "briefcase-account":
+                return <Icon path={mdiBriefcaseAccount} size={1} />
+            case "car-parking":
+                return <Icon path={mdiParking} size={1} />
+            case "food-apple":
+                return <Icon path={mdiFoodApple} size={1} />
+            case "briefcase":
+                return <Icon path={mdiBriefcaseAccount} size={1} />
+            case "food-fork-drink":
+                return <Icon path={mdiFoodForkDrink} size={1} />
             default:
                 return null;
         }
