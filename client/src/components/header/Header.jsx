@@ -29,7 +29,7 @@ const Header = ({ type }) => {
     ]);
 
     const [openDate, setOpenDate] = useState(false);
-    const [openOptions, setOpenOptions] = useState(false); // Separate state for Options
+    const [openOptions, setOpenOptions] = useState(false); 
     const [options, setOptions] = useState({
         adult: 1,
         children: 0,
