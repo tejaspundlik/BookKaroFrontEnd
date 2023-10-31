@@ -13,7 +13,11 @@
 
 .listSearch {
   flex: 1;
-  background-color: #febb02;
+  align-items: center;
+  /* background-color: #0071c2; */
+  background-color: rgb(2, 114, 199);
+  backdrop-filter: blur(10px);
+  border: 5px solid #febb02;
   padding: 10px;
   border-radius: 10px;
   position: sticky;
@@ -69,6 +73,7 @@
 }
 
 .lsOptionItem {
+  align-items: center;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -101,6 +106,8 @@
 
 .lsOptionText{
   font-size: 20px;
-  color: #000000;
-  
+  color: white;
+}
+.lsTitle{
+  color: white;
 }
