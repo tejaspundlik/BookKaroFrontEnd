@@ -36,10 +36,11 @@
 }
 
 .inputs{
-  margin-top: 55px;
+  margin-top: 4rem;
   display: flex;
   flex-direction: column;
   gap: 25px;
+  padding:3rem
 }
 
 .input{

@@ -6,16 +6,17 @@ import "./login.css";
 import Navbar from "../../components/navbar/Navbar";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: undefined,
-    password: undefined,
+    email: '',
+    password: '',
   });
   const [err, setErr] = useState(null);
   const { loading, dispatch } = useContext(AuthContext);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleForgot = () => {
     navigate("/forgot");
@@ -33,14 +34,11 @@ const Login = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     console.log(credentials.email, credentials.password)
-    if (credentials.email === undefined || credentials.password === undefined) {
+    if (credentials.email.trim() === '' || credentials.password.trim() === '') {
       setErr("Error, please fill each field")
     }
-    else if (credentials.password.trim() === '') {
-      setErr("Password Field Is Empty")
-    }
     else if (!isValidEmail(credentials.email)) {
-      setErr("Error, please put email in correct format")
+      setErr("Error, please put email in the correct format")
     }
     else {
       dispatch({ type: "LOGIN_START" });
@@ -72,25 +70,29 @@ const Login = () => {
         </div>
 
         <div className="inputs">
-          <div className="input">
-            <input
-              type="mail"
-              placeholder="Email"
-              id="email"
-              onChange={handleChange}
-              className="lInput"
-            />
-          </div>
 
-          <div className="input">
-            <input
-              type="password"
-              placeholder="Password"
-              id="password"
-              onChange={handleChange}
-              className="lInput"
-            />
-          </div>
+          <TextField
+            type="mail"
+            label="Email"
+            variant="outlined"
+            id="email"
+            onChange={handleChange}
+            value={credentials.email}
+            className="textinput"
+          />
+
+
+
+          <TextField
+            type="password"
+            label="Password"
+            variant="outlined"
+            id="password"
+            onChange={handleChange}
+            value={credentials.password}
+            className="textinput"
+          />
+
 
           <div className="submit-container">
             <button disabled={loading} onClick={handleClick} className="submit">
@@ -102,7 +104,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
