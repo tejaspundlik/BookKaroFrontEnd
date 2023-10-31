@@ -1,18 +1,20 @@
 import React from "react";
-import "./forgot.css"
+import "./forgot.css";
 import { useState } from "react";
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 
-const Register = () => {
+const Forgot = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
     const [err, setErr] = useState(null);
     const emailPattern = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
     const phonePattern = /^[0-9]{10}$/;
+
     const handleEmail = (e) => {
         setEmail(e.target.value);
     };
@@ -22,38 +24,32 @@ const Register = () => {
     };
 
     const handlePhone = (e) => {
-        setPhone(e.target.value)
+        setPhone(e.target.value);
     }
 
-
-    const handleClick = async e => {
-        e.preventDefault()
+    const handleClick = async (e) => {
+        e.preventDefault();
         if (!emailPattern.test(email)) {
             setErr("Please enter a valid email address");
-        }
-        else if (password === '') {
+        } else if (password === '') {
             setErr("Password Field Is Blank");
-        }
-        else if (!phonePattern.test(phone)) {
+        } else if (!phonePattern.test(phone)) {
             setErr("Phone Number Is Not Of Length 10");
-        }
-        else {
+        } else {
             try {
                 const newUser = {
-                    email, phone, password
+                    email,
+                    phone,
+                    password
                 };
-
-                await axios.post("https://bookkaro.onrender.com/auth/reset", newUser)
-                window.location.assign("/login")
-
+                await axios.post("https://bookkaro.onrender.com/auth/reset", newUser);
+                window.location.assign("/login");
             } catch (err) {
-                console.log(err)
+                console.log(err);
                 setErr(err.response.data.message);
             }
         }
-
     };
-
 
     return (
         <div>
@@ -71,15 +67,39 @@ const Register = () => {
                     <div className="underline"></div>
                 </div>
                 <div className="inputs">
-                    <div className="input">
-                        <input type="email" onChange={handleEmail} placeholder="Email" id="email" />
-                    </div>
-                    <div className="input">
-                        <input type="text" onChange={handlePhone} placeholder="Mobile Number" id="phone" />
-                    </div>
-                    <div className="input">
-                        <input type="password" onChange={handlePassword} placeholder="Password" id="password" />
-                    </div>
+
+                    <TextField
+                        type="email"
+                        label="Email"
+                        variant="outlined"
+                        onChange={handleEmail}
+                        value={email}
+                        placeholder="Email"
+                        id="email"
+                    />
+
+
+                    <TextField
+                        type="text"
+                        label="Mobile Number"
+                        variant="outlined"
+                        onChange={handlePhone}
+                        value={phone}
+                        placeholder="Mobile Number"
+                        id="phone"
+                    />
+
+
+                    <TextField
+                        type="password"
+                        label="Password"
+                        variant="outlined"
+                        onChange={handlePassword}
+                        value={password}
+                        placeholder="Password"
+                        id="password"
+                    />
+
                 </div>
 
                 <div className="submit-container">
@@ -87,7 +107,7 @@ const Register = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
-export default Register
+export default Forgot;
