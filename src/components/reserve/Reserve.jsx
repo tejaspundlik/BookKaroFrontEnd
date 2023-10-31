@@ -57,7 +57,7 @@ const Reserve = ({ setOpen, hotelId, price }) => {
     const navigate = useNavigate()
 
     const afterPayment = () => {
-        navigate('/')
+        navigate('/thanks')
     }
     const handleClick = async () => {
         try {
