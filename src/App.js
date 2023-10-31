@@ -6,6 +6,7 @@ import Hotel from "./pages/eachHotel/Hotel.jsx"
 import Login from './pages/login/Login';
 import Register from "./pages/register/Register.jsx";
 import Forgot from "./pages/forgot_pass/Forgot.jsx";
+import Thanks from "./components/thanks/Thanks.jsx";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/forgot" element={<Forgot/>}/>
+        <Route path="/thanks" element={<Thanks/>}/>
       </Routes>
     </BrowserRouter>
   );
