@@ -134,8 +134,7 @@ const Reserve = ({ setOpen, hotelId, price }) => {
                                 });
                             }}
                             onError={(err) => {
-                                // Handle payment errors here
-                                console.error("Error during payment:", err);
+                                alert("Your Browser Is Blocking The Payment PopUp")
                             }}
                         />
                     )}

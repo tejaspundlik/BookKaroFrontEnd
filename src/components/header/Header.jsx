@@ -11,13 +11,15 @@ import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import image2 from '../images/hotel_2.2.jpg';
 import image1 from '../images/hotel_1.1.jpg';
 import image3 from '../images/hotel_3.3.jpg';
 import image4 from '../images/hotel_4.4.jpg';
 
 const Header = ({ type }) => {
+    const [err, setErr] = useState(null);
     const [destination, setDestination] = useState("");
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const [dates, setDates] = useState([
@@ -64,9 +66,19 @@ const Header = ({ type }) => {
         localStorage.setItem('endDate', dates[0].endDate.toISOString());
         localStorage.setItem('optionsRoom', options.room);
         localStorage.setItem('endMonth', endMonth);
-        dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
-        console.log(dates)
-        navigate("/hotels", { state: { destination, dates, options } });
+        if (destination === "") {
+            setErr("Please Fill Your Destination")
+        }
+        else if (dates[0].endDate - dates[0].startDate < 86400000) {
+            setErr("You Should Stay At Least 1 Day ")
+        }
+        else if (!['berlin', 'london', 'madrid'].includes(destination)) {
+            setErr("Sorry, But We Are Currently Only In Berlin, Madrid and London")
+        }
+        else {
+            dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
+            navigate("/hotels", { state: { destination, dates, options } });
+        }
     };
 
     useEffect(() => {
@@ -207,7 +219,15 @@ const Header = ({ type }) => {
                                     Search
                                 </Button>
                             </div>
+
                         </div>
+                        {err && (
+                            <Stack sx={{ width: '100%' }} spacing={2}>
+                                <Alert severity="error" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '5rem' }}>
+                                    {err}
+                                </Alert>
+                            </Stack>
+                        )}
                     </>
                 )}
             </div>
