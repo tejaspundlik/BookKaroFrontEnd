@@ -31,8 +31,8 @@ const List = () => {
         calculatedPrice = item.cheapestPrice * item.multiplier[index];
         console.log("Calculated Price: ", calculatedPrice)
         return (
-          (min === undefined || calculatedPrice >= min) &&
-          (max === undefined || calculatedPrice <= max)
+          (min === 0 || calculatedPrice >= min) &&
+          (max === 0 || calculatedPrice <= max)
         );
       });
 
@@ -63,13 +63,13 @@ const List = () => {
                   <TextField
                     InputLabelProps={{ style: { color: 'white' } }}
                     InputProps={{ style: { color: 'white', borderColor: 'white' } }}
-                    label="Minimum Price Per Night" onChange={e => setMin(Math.max(0, parseInt(e.target.value)))} className="lsOptionText" />
+                    label="Minimum Price Per Night" onChange={e => { (e.target.value < 50) ? setMin(1) : setMin(Math.max(0, parseInt(e.target.value))) }} className="lsOptionText" />
                 </div>
                 <div className="lsOptionItem">
                   <TextField
                     InputLabelProps={{ style: { color: 'white' } }}
                     InputProps={{ style: { color: 'white', borderColor: 'white' } }}
-                    label="Maximum Price Per Night" className="lsOptionText" onChange={e => setMax(Math.max(0, parseInt(e.target.value)))}
+                    label="Maximum Price Per Night" className="lsOptionText" onChange={e => { (e.target.value < 10) ? setMax(9000) : setMax(Math.max(0, parseInt(e.target.value))); console.log(max) }}
                   />
                 </div>
                 {/* <div className="lsOptionItem">

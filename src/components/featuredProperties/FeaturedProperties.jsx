@@ -1,16 +1,16 @@
 import useFetch from "../../hooks/useFetch";
 import "./featuredProperties.css"
-
+import { useNavigate } from "react-router-dom";
 const FeaturedProperties = () => {
   const { data, loading, error } = useFetch("https://bookkaro.onrender.com/hotels?featured=true&limit=4");
-  
+  const navigate = useNavigate();
 
   return (
     <div className="fp">
       {loading ? ("Loading...") : (
         <>
           {data.map((item) => (
-            <div className="fpItem" key={item._id}>
+            <div className="fpItem" key={item._id} onClick={() => { navigate(`/hotels/${item._id}`) }}>
               <img
                 src={item.photos[0]}
                 alt=""

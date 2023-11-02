@@ -29,7 +29,7 @@ const Header = ({ type }) => {
     ]);
 
     const [openDate, setOpenDate] = useState(false);
-    const [openOptions, setOpenOptions] = useState(false); 
+    const [openOptions, setOpenOptions] = useState(false);
     const [options, setOptions] = useState({
         adult: 1,
         children: 0,
@@ -60,12 +60,12 @@ const Header = ({ type }) => {
     const handleSearch = () => {
         const endDate = dates[0].endDate;
         const endMonth = endDate.getMonth()
-
         localStorage.setItem('startDate', dates[0].startDate.toISOString());
         localStorage.setItem('endDate', dates[0].endDate.toISOString());
         localStorage.setItem('optionsRoom', options.room);
         localStorage.setItem('endMonth', endMonth);
         dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
+        console.log(dates)
         navigate("/hotels", { state: { destination, dates, options } });
     };
 
@@ -104,7 +104,7 @@ const Header = ({ type }) => {
                                     label="Where are you going?"
                                     variant="outlined"
                                     className="headerSearchInput"
-                                    onChange={(e) => setDestination(e.target.value)}
+                                    onChange={(e) => setDestination((e.target.value).toLowerCase())}
                                 />
                             </div>
                             <div className="headerSearchItem">

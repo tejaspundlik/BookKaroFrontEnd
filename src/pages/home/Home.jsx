@@ -8,14 +8,14 @@ import "./home.css";
 const Home = () => {
     return (
         <div>
-            <Navbar/>
-            <Header/>
+            <Navbar />
+            <Header />
             <div className="homeContainer">
-                <Featured/>
-                <h1 className="homeTitle">Browse by property type</h1>
-                <PropertyList/>
+                <Featured />
+                {/* <h1 className="homeTitle">Browse by property type</h1>
+                <PropertyList/> */}
                 <h1 className="homeTitle">Home guests love</h1>
-                <FeaturedProperties/>
+                <FeaturedProperties />
             </div>
         </div>
     )
