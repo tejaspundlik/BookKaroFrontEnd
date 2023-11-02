@@ -15,7 +15,10 @@ const List = () => {
   const [min, setMin] = useState(1);
   const [max, setMax] = useState(99999999);
 
-
+  console.log("local storage", localStorage.getItem('endMonth'))
+  if (localStorage.getItem('endMonth') === null) {
+    localStorage.setItem('endMonth', 11);
+  }
   const endMonth = parseInt(localStorage.getItem('endMonth'), 10);
   const index = endMonth - 1;
 
@@ -26,6 +29,7 @@ const List = () => {
   let calculatedPrice;
   const { data, loading, error, reFetch } = useFetch(`https://bookkaro.onrender.com/hotels?city=${destination}&min=${calculatedPrice || 0}&max=${calculatedPrice || 1000}`);
   useEffect(() => {
+    console.log(data)
     if (data.length > 0) {
       const filteredHotels = data.filter((item) => {
         calculatedPrice = item.cheapestPrice * item.multiplier[index];
@@ -35,7 +39,6 @@ const List = () => {
           (max === 0 || calculatedPrice <= max)
         );
       });
-
       setFilteredData(filteredHotels);
     }
   }, [data, min, max, index]);

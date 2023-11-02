@@ -131,25 +131,22 @@ const Hotel = () => {
 
 
     const navigate = useNavigate()
-
+    let days = 0;
     const { dates, options } = useContext(SearchContext);
-    console.log("Dates ", dates);
+    if (localStorage.getItem('startDate') === null) {
+        localStorage.setItem('startDate', '2023-11-27T18:30:00.000Z');
+        localStorage.setItem('endDate', '2023-11-28T18:30:00.000Z');
+        localStorage.setItem('optionsRoom', 'room:1');
+        localStorage.setItem('endMonth', 11);
+        days = 1
+    }
     const storedStartDate = localStorage.getItem('startDate');
     const storedEndDate = localStorage.getItem('endDate');
     const optionsRoom = localStorage.getItem('optionsRoom');
     const endMonth = parseInt(localStorage.getItem('endMonth'), 10);
     const index = endMonth - 1;
-    console.log("Index : ", index);
-
-
     const startDate = new Date(storedStartDate);
     const endDate = new Date(storedEndDate);
-    console.log("Data ", data.multiplier);
-
-    console.log("Options room: ", optionsRoom);
-    console.log("End Month: ", typeof (endMonth), endMonth);
-    console.log("Start and end dates: ", startDate, " and ", endDate)
-    console.log("Stored Start and end dates: ", storedStartDate, " and ", storedEndDate)
 
 
     const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -159,12 +156,10 @@ const Hotel = () => {
         return diffDays;
     }
 
-    let days = 0;
 
     if (storedEndDate && storedStartDate) {
         console.log("Start and end dates ", startDate, endDate)
         days = dayDifference(endDate, startDate);
-        console.log("Days ", days);
     }
 
     const handleOpen = (i) => {
@@ -177,6 +172,7 @@ const Hotel = () => {
         const fetchData = async () => {
             try {
                 const multi = await handleMulti();
+                console.log("tac multi", multi)
                 setMultiResult(multi);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -191,7 +187,7 @@ const Hotel = () => {
         try {
             const response = await axios.get(`https://bookkaro.onrender.com/hotels/find/${id}`);
             const hotelData = response.data;
-            const result = days * hotelData.cheapestPrice * optionsRoom * hotelData.multiplier[index];
+            const result = days * hotelData.cheapestPrice * hotelData.multiplier[index];
             return result;
         }
         catch (error) {
@@ -230,12 +226,6 @@ const Hotel = () => {
             container.scrollLeft += 1000;
         }
     };
-
-    console.log(days)
-    console.log(data.cheapestPrice)
-    console.log(options.room)
-
-
     return (
         <div>
             <Navbar />
